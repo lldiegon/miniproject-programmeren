@@ -107,20 +107,23 @@ def fiets_stallen():
 def fiets_ophalen():
     print("U heeft gekozen voor: Ik wil mijn fiets ophalen.")
     stickercode = input('Voer uw stickercode in: ')
-    wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
 
     with open('fietsen.csv', 'r') as lezen:
         reader = csv.reader(lezen, delimiter=';')
         list = []
-        if stickercode in list:
-            for row in reader:
-                if row[0] == stickercode and row[3] == wachtwoord:
-                    print('Kluis is open')
-                if row[0] == stickercode and row[3] != wachtwoord:
-                    print('Wachtwoord is incorrect')
-                list.append(row[0])
+        for row in reader:
+            list.append(row[0])
         if stickercode not in list:
             print('Deze stickercode is niet aanwezig.')
+        elif stickercode in list:
+            wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
+            with open('fietsen.csv', 'r') as lezen:
+                reader = csv.reader(lezen, delimiter=';')
+                for row in reader:
+                    if row[0] == stickercode and row[3] == wachtwoord:
+                        print('Kluis is open')
+                    if row[0] == stickercode and row[3] != wachtwoord:
+                        print('Wachtwoord is incorrect')
 
 def informatie_opvragen():
     print("U heeft gekozen voor: Ik wil informatie opvragen.")
