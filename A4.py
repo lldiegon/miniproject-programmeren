@@ -101,9 +101,7 @@ def fiets_stallen():
             list = []
             stickercode = int(input('Voer uw stickercode in: '))
 
-            if stickercode not in list:
-                print("Deze stickercode komt niet overeen met de database!")
-            elif stickercode in list:
+            if stickercode in list:
                 for row in reader:
                     list.append(row[0])
                     writer = csv.writer(schrijven, delimiter=';')
@@ -112,6 +110,8 @@ def fiets_stallen():
                         achternaam = row[2]
                         writer.writerow((stickercode, voornaam, achternaam, str(datetime.now())))
                         print("Uw fiets is gestalt!")
+            elif stickercode not in list:
+                print("Deze stickercode komt niet overeen met de database!")
 
 def fiets_ophalen():
     print("U heeft gekozen voor: Ik wil mijn fiets ophalen.")
