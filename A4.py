@@ -100,10 +100,9 @@ def fiets_stallen():
             reader = csv.reader(lezen, delimiter=';')
             list = []
             stickercode = int(input('Voer uw stickercode in: '))
-
-            if stickercode in list:
-                for row in reader:
+            for row in reader:
                     list.append(row[0])
+            if stickercode in list:
                     writer = csv.writer(schrijven, delimiter=';')
                     if row[0] == stickercode:
                         voornaam = row[1]
