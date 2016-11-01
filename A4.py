@@ -102,7 +102,7 @@ def fiets_stallen():
             stickercode = int(input('Voer uw stickercode in: '))
 
             if stickercode not in list:
-                print("Deze stickercode komt niet overeen met het database!")
+                print("Deze stickercode komt niet overeen met de database!")
             elif stickercode in list:
                 for row in reader:
                     list.append(row[0])
@@ -123,7 +123,7 @@ def fiets_ophalen():
         for row in reader:
             list.append(row[0])
         if stickercode not in list:
-            print('Deze stickercode komt niet overeen met het database!')
+            print('Deze stickercode komt niet overeen met de database!')
         elif stickercode in list:
             wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
             with open('fietsen.csv', 'r') as lezen:
