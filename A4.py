@@ -96,13 +96,22 @@ def fiets_registreren():
 def fiets_stallen():
     print("U heeft gekozen voor: Ik wil mijn fiets stallen.")
     with open('stalling.csv', 'a', newline='') as schrijven:
-        writer = csv.writer(schrijven, delimiter=';')
-        stickercode = int(input('Voer uw stickercode in: '))
-        voornaam = str(input("Vul uw voornaam in: "))
-        achternaam = str(input("Vul uw achternaam in: "))
-        writer.writerow((stickercode, voornaam, achternaam, str(datetime.now())))
-        print("Uw fiets is gestalt!")
+        with open('fietsen.csv', 'r') as lezen:
+            reader = csv.reader(lezen, delimiter=';')
+            list = []
+            stickercode = int(input('Voer uw stickercode in: '))
 
+            if stickercode not in list:
+                print("Deze stickercode komt niet overeen met het database!")
+            elif stickercode in list:
+                for row in reader:
+                    list.append(row[0])
+                    writer = csv.writer(schrijven, delimiter=';')
+                    if row[0] == stickercode:
+                        voornaam = row[1]
+                        achternaam = row[2]
+                        writer.writerow((stickercode, voornaam, achternaam, str(datetime.now())))
+                        print("Uw fiets is gestalt!")
 
 def fiets_ophalen():
     print("U heeft gekozen voor: Ik wil mijn fiets ophalen.")
@@ -114,7 +123,7 @@ def fiets_ophalen():
         for row in reader:
             list.append(row[0])
         if stickercode not in list:
-            print('Deze stickercode is niet aanwezig.')
+            print('Deze stickercode komt niet overeen met het database!')
         elif stickercode in list:
             wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
             with open('fietsen.csv', 'r') as lezen:
