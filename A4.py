@@ -137,12 +137,18 @@ def informatie_opvragen():
     print("U heeft gekozen voor: Ik wil informatie opvragen.")
 
     print("1: Ik wil weten hoeveel stalplaatsen er nog beschikbaar zijn.")
-    print("2: Keuze 2.")
+    print("2: Ik wil weten hoeveel het kost om mijn fiets te stallen.")
+    print("3: Ik ben mijn wachtwoord vergeten.")
+    keuzes = [1, 2, 3]
     informatie_keuze = int(input('Vul een nummer voor de keuze in: '))
 
+    while informatie_keuze not in keuzes:
+        print('Dit is geen optie, kies opnieuw')
+        informatie_keuze = int(input('Vul een nummer voor de keuze in: '))
+
     if informatie_keuze == 1:
-        with open('fietsen.csv', 'r', newline='') as lezen:
-            with open('fietsen.csv', 'a', newline='') as schrijven:
+        with open('stalling.csv', 'r', newline='') as lezen:
+            with open('stalling.csv', 'a', newline='') as schrijven:
                 reader = csv.reader(lezen, delimiter=';')
                 lijst = []
                 print("U heeft gekozen voor: Ik wil weten hoeveel stalplaatsen nog vrij zijn.")
@@ -156,7 +162,18 @@ def informatie_opvragen():
                     print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
 
     if informatie_keuze == 2:
-        print("U heeft gekozen voor keuze 2")
+        print("De 1e dag is gratis, daarna betaal je 50 cent per dag.")
+
+    if informatie_keuze == 3:
+        mail = input(print('Wat is uw email?:'))
+        stickercode = input(print('Wat is de stickercode?:'))
+
+        with open('fietsen.csv', 'r') as lezen:
+            reader = csv.reader(lezen, delimiter=';')
+            list = []
+            for row in reader:
+                if mail == row[3] and stickercode == row[0]:
+                    print('Uw wachtwoord is:', row[4])
 
 def stoppen():
     print("U heeft gekozen voor: Ik wil stoppen.")
