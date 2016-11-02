@@ -131,8 +131,30 @@ def fiets_ophalen():
                 for row in reader:
                     if row[0] == stickercode and row[3] == wachtwoord:
                         print('Kluis is open')
+                        regel_verwijderen(stickercode)
                     if row[0] == stickercode and row[3] != wachtwoord:
                         print('Wachtwoord is incorrect')
+
+def regel_verwijderen(stickercode):
+    with open('stalling.csv', 'r') as lezen:
+        reader = csv.reader(lezen, delimiter=';')
+        stickercodes = []
+        voornamen = []
+        achternamen = []
+        datums = []
+        for row in reader:
+            if row[0] != stickercode:
+                stickercodes.append(row[0])
+                voornamen.append(row[1])
+                achternamen.append(row[2])
+                datums.append(row[3])
+
+    with open('stalling.csv', 'w', newline='') as schrijven:
+        writer = csv.writer(schrijven, delimiter=';')
+        i = 0
+        while i < len(stickercodes):
+            writer.writerow((stickercodes[i] , voornamen[i], achternamen[i], datums[i]))
+            i = i + 1
 
 def informatie_opvragen():
     print("U heeft gekozen voor: Ik wil informatie opvragen.")
