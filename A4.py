@@ -95,11 +95,12 @@ def fiets_registreren():
 
 def fiets_stallen():
     print("U heeft gekozen voor: Ik wil mijn fiets stallen.")
+    stickercode = input('Voer uw stickercode in: ')
+
     with open('stalling.csv', 'a', newline='') as schrijven:
         with open('fietsen.csv', 'r') as lezen:
             reader = csv.reader(lezen, delimiter=';')
             list = []
-            stickercode = int(input('Voer uw stickercode in: '))
             for row in reader:
                     list.append(row[0])
             if stickercode in list:
