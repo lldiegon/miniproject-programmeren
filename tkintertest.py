@@ -202,15 +202,15 @@ def fiets_ophalen():
             elif str(stickercode_entry.get()) in list:
                 with open('fietsen.csv', 'r') as lezen:
                     reader = csv.reader(lezen, delimiter=';')
-                    x = 0
+                    incorrectWachtwoord = 0
                     for row in reader:
                         if row[0] == str(stickercode_entry.get()) and row[3] == str(wachtwoord_entry.get()):
                             kluisopen = Label(master=subwindow3,text='Uw fietsenkluis is open!',height=1)
                             kluisopen.grid(row=2, column=2)
                             regel_verwijderen(str(stickercode_entry.get()))
                         else:
-                            x += 1
-                    if x == len(row):
+                            incorrectWachtwoord += 1
+                    if incorrectWachtwoord == len(row):
                         incorrectpassword = Label(master=subwindow3,text='Incorrect wachtwoord!',height=1)
                         incorrectpassword.grid(row=3, column=2)
 
