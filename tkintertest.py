@@ -40,30 +40,28 @@ def fiets_registreren():
                 voornaam = Label(master=subwindow, text="Voornaam")
                 achternaam = Label(master=subwindow, text="Achternaam")
                 email = Label(master=subwindow, text="Email")
+                wachtwoord = Label(master=subwindow, text="wachtwoord")
                 telegramidmessage = Label(master=subwindow, text="Vul hieronder uw telegram ID in als u gebruik wilt maken van two factor authentication.")
                 telegramid = Label(master=subwindow, text="Telegram ID")
-                wachtwoord = Label(master=subwindow, text="wachtwoord")
 
                 voornaam_entry = Entry(master=subwindow)
                 achternaam_entry = Entry(master=subwindow)
                 email_entry = Entry(master=subwindow)
-                telegramid_entry = Entry(master=subwindow)
                 wachtwoord_entry = Entry(master=subwindow, show="*")
+                telegramid_entry = Entry(master=subwindow)
 
                 voornaam.grid(row=1, column=1, sticky=E)
                 achternaam.grid(row=2, column=1, sticky=E)
                 email.grid(row=3, column=1, sticky=E)
+                wachtwoord.grid(row=4, column=1, sticky=E)
                 telegramidmessage.grid(row=5, column=2, sticky=E)
                 telegramid.grid(row=6, column=1, sticky=E)
-                wachtwoord.grid(row=4, column=1, sticky=E)
 
                 voornaam_entry.grid(row=1, column=2)
                 achternaam_entry.grid(row=2, column=2)
                 email_entry.grid(row=3, column=2)
-                telegramid_entry.grid(row=6, column=2)
                 wachtwoord_entry.grid(row=4, column=2)
-
-
+                telegramid_entry.grid(row=6, column=2)
 
                 def checkregistratie():
                     if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
@@ -96,43 +94,49 @@ def fiets_registreren():
             achternaam = Label(master=subwindow, text="Achternaam")
             email = Label(master=subwindow, text="Email")
             wachtwoord = Label(master=subwindow, text="wachtwoord")
+            telegramidmessage = Label(master=subwindow, text="Vul hieronder uw telegram ID in als u gebruik wilt maken van two factor authentication.")
+            telegramid = Label(master=subwindow, text="Telegram ID")
 
             voornaam_entry = Entry(master=subwindow)
             achternaam_entry = Entry(master=subwindow)
             email_entry = Entry(master=subwindow)
             wachtwoord_entry = Entry(master=subwindow, show="*")
+            telegramid_entry = Entry(master=subwindow)
 
             voornaam.grid(row=1, column=1, sticky=E)
             achternaam.grid(row=2, column=1, sticky=E)
             email.grid(row=3, column=1, sticky=E)
             wachtwoord.grid(row=4, column=1, sticky=E)
+            telegramidmessage.grid(row=5, column=2, sticky=E)
+            telegramid.grid(row=6, column=1, sticky=E)
 
             voornaam_entry.grid(row=1, column=2)
             achternaam_entry.grid(row=2, column=2)
             email_entry.grid(row=3, column=2)
             wachtwoord_entry.grid(row=4, column=2)
+            telegramid_entry.grid(row=6, column=2)
 
             def checkregistratie():
                 if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                     emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
-                    emailcorrect.grid(row=2, column=2)
+                    emailcorrect.grid(row=8, column=2)
 
                 if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                     wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2)
-                    wachtwoordcorrect.grid(row=3, column=2)
+                    wachtwoordcorrect.grid(row=8, column=2)
 
                 elif str('@') in str(email_entry.get()) and str('.') in str(email_entry.get()) and len(str(email_entry.get())) >= 6 and len(str(email_entry.get())) <= 30 and len(str(wachtwoord_entry.get())) >= 8 and len(str(wachtwoord_entry.get())) <= 12:
                     with open('fietsen.csv', 'a', newline='') as schrijven:
                         stickercode = randint(10000, 99999)
                         stickercode2 = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
-                        stickercode2.grid(row=5, column=3, sticky=E)
+                        stickercode2.grid(row=8, column=3, sticky=E)
                         writer = csv.writer(schrijven, delimiter=';')
-                        writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
+                        writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get()), str(telegramid_entry.get())))
                         del lijst[:]
                         checkregistratieknop.config(state="disabled")
 
             checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
-            checkregistratieknop.grid(row=4, column=1)
+            checkregistratieknop.grid(row=8, column=2)
 
 def fiets_stallen():
     subwindow2 = Toplevel(master=root)
