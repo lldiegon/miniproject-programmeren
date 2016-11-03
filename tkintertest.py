@@ -60,7 +60,7 @@ def fiets_registreren():
 
 
                 def checkregistratie():
-                    if str('@') not in str(email_entry) or str('.') not in str(email_entry) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
+                    if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                         emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
                         emailcorrect.grid(row=6, column=2)
 
@@ -106,7 +106,7 @@ def fiets_registreren():
             wachtwoord_entry.grid(row=4, column=2)
 
             def checkregistratie():
-                if str('@') not in email_entry or str('.') not in email_entry or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
+                if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                     emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
                     emailcorrect.grid(row=2, column=2)
 
