@@ -73,8 +73,8 @@ def fiets_registreren():
                             writer.writerow((stickercode, voornaam_entry, achternaam_entry, wachtwoord_entry, email_entry))
                             del lijst[:]
 
-                    checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie())
-                    checkregistratieknop.grid(row=4, column=1)
+                    checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
+                    checkregistratieknop.grid(row=5, column=2)
 
                 else:
                     vol = Label(master=subwindow, text='Alle stalplaatsen zijn momenteel in gebruik, probeer het later opnieuw.')
