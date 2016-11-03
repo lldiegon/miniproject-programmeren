@@ -177,10 +177,10 @@ def fiets_ophalen():
                             kluisopen = Label(master=subwindow3,text='Uw fietsenkluis is open!',height=1)
                             kluisopen.grid(row=2, column=2)
                             regel_verwijderen(str(stickercode_entry.get()))
-
                             telegramid = row[5]
-                            link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
-                            webbrowser.open(link)
+                            if telegramid != '':
+                                link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
+                                webbrowser.open(link)
                         else:
                             incorrectWachtwoord += 1
                     if incorrectWachtwoord == len(row):
@@ -284,6 +284,10 @@ def informatie_opvragen():
                     if str(email_entry.get()) == row[4] and str(stickercode_entry.get()) == row[0]:
                         wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[3])
                         wachtwoord.grid(row=10, column=1, sticky=E)
+                        telegramid = row[5]
+                        if telegramid != '':
+                            link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20wachtwoord%20is%20opgehaald%20via%20de%20wachtwoord%20vergeten%20functie%20,%20%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
+                            webbrowser.open(link)
                     if str(email_entry.get()) != row[4]:
                         email_onbekend += 1
                     if str(stickercode_entry.get()) != row[0]:
