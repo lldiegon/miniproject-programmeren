@@ -5,11 +5,11 @@ from datetime import datetime
 
 root = Tk()
 label = Label(master=root, text='Kies een van de onderstaande opties!', height=2)
-label.pack()
+label.grid()
 
 photo = PhotoImage(file="das fiets.png")
 background_label = Label(root, image=photo)
-background_label.pack()
+background_label.grid()
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 def fiets_registreren():
@@ -19,14 +19,11 @@ def fiets_registreren():
     subwindow.geometry('575x390')
 
     background_label = Label(subwindow, image=photo)
-    background_label.pack()
+    background_label.grid()
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    label = Label(master=subwindow,text='U heeft gekozen voor: Ik wil mijn fiets registreren.',height=2)
-    label.pack()
-
-    entry = Entry(master=root)
-    entry.pack(padx=10, pady=10)
+    label = Label(master=subwindow,text='U heeft gekozen voor: Ik wil mijn fiets registreren.',height=1)
+    label.grid(row=0, column=2)
 
     with open('fietsen.csv', 'r', newline='') as lezen:
         with open('fietsen.csv', 'a', newline='') as schrijven:
@@ -52,15 +49,15 @@ def fiets_registreren():
                     email_entry = Entry(master=subwindow)
                     wachtwoord_entry = Entry(master=subwindow, show="*")
 
-                    voornaam.grid(row=0, sticky=E)
-                    achternaam.grid(row=1, sticky=E)
-                    email.grid(row=2, sticky=E)
-                    wachtwoord.grid(row=3, sticky=E)
+                    voornaam.grid(row=1, column=1, sticky=E)
+                    achternaam.grid(row=2, column=1, sticky=E)
+                    email.grid(row=3, column=1, sticky=E)
+                    wachtwoord.grid(row=4, column=1, sticky=E)
 
-                    voornaam_entry.grid(row=0, column=1)
-                    achternaam_entry.grid(row=1, column=1)
-                    email_entry.grid(row=2, column=1)
-                    wachtwoord_entry.grid(row=3, column=1)
+                    voornaam_entry.grid(row=1, column=2)
+                    achternaam_entry.grid(row=2, column=2)
+                    email_entry.grid(row=3, column=2)
+                    wachtwoord_entry.grid(row=4, column=2)
 
 
 
@@ -98,15 +95,16 @@ def fiets_registreren():
                 email_entry = Entry(master=subwindow)
                 wachtwoord_entry = Entry(master=subwindow, show="*")
 
-                voornaam.grid(row=0, sticky=E)
-                achternaam.grid(row=1, sticky=E)
-                email.grid(row=2, sticky=E)
-                wachtwoord.grid(row=3, sticky=E)
+                voornaam.grid(row=1, sticky=E)
+                achternaam.grid(row=2, sticky=E)
+                email.grid(row=3, sticky=E)
+                wachtwoord.grid(row=4, sticky=E)
 
-                voornaam_entry.grid(row=0, column=1)
-                achternaam_entry.grid(row=1, column=1)
-                email_entry.grid(row=2, column=1)
-                wachtwoord_entry.grid(row=3, column=1)
+                voornaam_entry.grid(row=1, column=1)
+                achternaam_entry.grid(row=2, column=1)
+                email_entry.grid(row=3, column=1)
+                wachtwoord_entry.grid(row=4, column=1)
+
 
 
 
@@ -130,19 +128,19 @@ def fiets_registreren():
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
-registreerknop.pack(pady=10)
+registreerknop.grid(row=0, column=1)
 
 stalknop = Button(master=root, text='Ik wil mijn fiets stallen')
-stalknop.pack(pady=10)
+stalknop.grid(row=1, column=1)
 
 ophaalknop = Button(master=root, text='Ik wil mijn fiets ophalen')
-ophaalknop.pack(pady=10)
+ophaalknop.grid(row=2, column=1)
 
 informatieopvragenknop = Button(master=root, text='Ik wil informatie opvragen')
-informatieopvragenknop.pack(pady=10)
+informatieopvragenknop.grid(row=3, column=1)
 
 stopknop = Button(master=root, text='Ik wil stoppen')
-stopknop.pack(pady=10)
+stopknop.grid(row=4, column=1)
 
 
 root.geometry('575x390')
