@@ -1,6 +1,7 @@
 import csv
 from random import randint
 from datetime import datetime
+import webbrowser
 
 infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
@@ -51,6 +52,7 @@ def fiets_registreren():
                     writer = csv.writer(schrijven, delimiter=';')
                     voornaam = str(input("Vul uw voornaam in: "))
                     achternaam = str(input("Vul uw achternaam in: "))
+                    telegramid = str(input("Vul uw telegramid in (aanbevolen): ")
 
                     stickercode = randint(10000, 99999)
                     print('Uw stickercode is: ' + str(stickercode))
@@ -76,6 +78,7 @@ def fiets_registreren():
                 writer = csv.writer(schrijven, delimiter=';')
                 voornaam = str(input("Vul uw voornaam in: "))
                 achternaam = str(input("Vul uw achternaam in: "))
+                telegramid = str(input("Vul uw telegramid in (aanbevolen): ")
 
                 stickercode = randint(10000, 99999)
                 print('Uw stickercode is: ' + str(stickercode))
@@ -132,6 +135,10 @@ def fiets_ophalen():
                     if row[0] == stickercode and row[3] == wachtwoord:
                         print('Kluis is open')
                         regel_verwijderen(stickercode)
+                        telegramid = row[5]
+                        link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
+                        webbrowser.open(link)
+                        print("Er is een beveiligingsbericht naar uw telegram gestuurd")
                     if row[0] == stickercode and row[3] != wachtwoord:
                         print('Wachtwoord is incorrect')
 
