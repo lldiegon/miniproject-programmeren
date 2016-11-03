@@ -14,7 +14,6 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
-lezen = infile.read()
 
 def fiets_registreren():
     def close():
