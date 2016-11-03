@@ -126,18 +126,18 @@ def fiets_registreren():
             checkregistratieknop.grid(row=4, column=1)
 
 def fiets_stallen():
-    subwindow = Toplevel(master=root)
-    subwindow.geometry('575x390')
+    subwindow2 = Toplevel(master=root)
+    subwindow2.geometry('575x390')
 
-    background_label = Label(subwindow, image=photo)
+    background_label = Label(subwindow2, image=photo)
     background_label.grid()
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    label = Label(master=subwindow,text='U heeft gekozen voor: Ik wil mijn fiets stallen.',height=1)
+    label = Label(master=subwindow2,text='U heeft gekozen voor: Ik wil mijn fiets stallen.',height=1)
     label.grid(row=0, column=2)
 
-    stickercode = Label(master=subwindow, text="Voor hier uw stickercode in: ")
-    stickercode_entry = Entry(master=subwindow)
+    stickercode = Label(master=subwindow2, text="Voor hier uw stickercode in: ")
+    stickercode_entry = Entry(master=subwindow2)
 
     stickercode.grid(row=1, column=1, sticky=E)
     stickercode_entry.grid(row=1, column=2, sticky=E)
@@ -155,14 +155,14 @@ def fiets_stallen():
                             voornaam = row[1]
                             achternaam = row[2]
                             writer.writerow((str(stickercode_entry.get()), voornaam, achternaam, str(datetime.now())))
-                            label = Label(master=subwindow,text='Uw fiets is gestalt!',height=1)
+                            label = Label(master=subwindow2,text='Uw fiets is gestalt!',height=1)
                             label.grid(row=2, column=2)
                             checkstallingknop.config(state="disabled")
                 elif str(stickercode_entry.get()) not in list:
-                    label = Label(master=subwindow,text='Deze stickercode komt niet overeen met de database!',height=1)
+                    label = Label(master=subwindow2,text='Deze stickercode komt niet overeen met de database!',height=1)
                     label.grid(row=2, column=2)
 
-    checkstallingknop = Button(master=subwindow, text='Stal fiets', command=checkstalling())
+    checkstallingknop = Button(master=subwindow2, text='Stal fiets', command=checkstalling())
     checkstallingknop.grid(row=4, column=1)
 
 
