@@ -216,7 +216,6 @@ def fiets_ophalen():
         checkophalenknop.grid(row=3, column=1)
 
 def regel_verwijderen(stickercode):
-    print('werkt')
     with open('stalling.csv', 'r') as lezen:
         reader = csv.reader(lezen, delimiter=';')
         stickercodes = []
