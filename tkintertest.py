@@ -17,8 +17,6 @@ infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
 
 def fiets_registreren():
-    def close():
-        subwindow.withdraw()
     subwindow = Toplevel(master=root)
     subwindow.geometry('575x390')
 
@@ -77,7 +75,7 @@ def fiets_registreren():
                             writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                             del lijst[:]
                             checkregistratieknop.config(state="disabled")
-                            
+
                 checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
                 checkregistratieknop.grid(row=5, column=2)
 
@@ -122,18 +120,57 @@ def fiets_registreren():
                         writer = csv.writer(schrijven, delimiter=';')
                         writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                         del lijst[:]
+                        checkregistratieknop.config(state="disabled")
 
             checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie())
             checkregistratieknop.grid(row=4, column=1)
 
+def fiets_stallen():
+    subwindow = Toplevel(master=root)
+    subwindow.geometry('575x390')
 
+    background_label = Label(subwindow, image=photo)
+    background_label.grid()
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    label = Label(master=subwindow,text='U heeft gekozen voor: Ik wil mijn fiets stallen.',height=1)
+    label.grid(row=0, column=2)
+
+    stickercode = Label(master=subwindow, text="Voor hier uw stickercode in: ")
+    stickercode_entry = Entry(master=subwindow)
+
+    stickercode.grid(row=1, column=1, sticky=E)
+    stickercode_entry.grid(row=1, column=2, sticky=E)
+
+    def checkstalling():
+        with open('stalling.csv', 'a', newline='') as schrijven:
+            with open('fietsen.csv', 'r') as lezen:
+                reader = csv.reader(lezen, delimiter=';')
+                list = []
+                for row in reader:
+                        list.append(row[0])
+                if str(stickercode_entry.get()) in list:
+                        writer = csv.writer(schrijven, delimiter=';')
+                        if row[0] == str(stickercode_entry.get()):
+                            voornaam = row[1]
+                            achternaam = row[2]
+                            writer.writerow((str(stickercode_entry.get()), voornaam, achternaam, str(datetime.now())))
+                            label = Label(master=subwindow,text='Uw fiets is gestalt!',height=1)
+                            label.grid(row=2, column=2)
+                            checkstallingknop.config(state="disabled")
+                elif str(stickercode_entry.get()) not in list:
+                    label = Label(master=subwindow,text='Deze stickercode komt niet overeen met de database!',height=1)
+                    label.grid(row=2, column=2)
+
+    checkstallingknop = Button(master=subwindow, text='Stal fiets', command=checkstalling())
+    checkstallingknop.grid(row=4, column=1)
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
 registreerknop.grid(row=0, column=1)
 
 stalknop = Button(master=root, text='Ik wil mijn fiets stallen')
-stalknop.grid(row=1, column=1)
+stalknop.grid(row=1, column=1, command=fiets_stallen())
 
 ophaalknop = Button(master=root, text='Ik wil mijn fiets ophalen')
 ophaalknop.grid(row=2, column=1)
