@@ -40,22 +40,28 @@ def fiets_registreren():
                 voornaam = Label(master=subwindow, text="Voornaam")
                 achternaam = Label(master=subwindow, text="Achternaam")
                 email = Label(master=subwindow, text="Email")
+                telegramidmessage = Label(master=subwindow, text="Vul hieronder uw telegram ID in als u gebruik wilt maken van two factor authentication.")
+                telegramid = Label(master=subwindow, text="Telegram ID")
                 wachtwoord = Label(master=subwindow, text="wachtwoord")
 
                 voornaam_entry = Entry(master=subwindow)
                 achternaam_entry = Entry(master=subwindow)
                 email_entry = Entry(master=subwindow)
+                telegramid_entry = Entry(master=subwindow)
                 wachtwoord_entry = Entry(master=subwindow, show="*")
 
                 voornaam.grid(row=1, column=1, sticky=E)
                 achternaam.grid(row=2, column=1, sticky=E)
                 email.grid(row=3, column=1, sticky=E)
-                wachtwoord.grid(row=4, column=1, sticky=E)
+                telegramidmessage.grid(row=4, column=2, sticky=E)
+                telegramid.grid(row=5, column=1, sticky=E)
+                wachtwoord.grid(row=6, column=1, sticky=E)
 
                 voornaam_entry.grid(row=1, column=2)
                 achternaam_entry.grid(row=2, column=2)
                 email_entry.grid(row=3, column=2)
-                wachtwoord_entry.grid(row=4, column=2)
+                telegramid_entry.grid(row=5, column=2)
+                wachtwoord_entry.grid(row=6, column=2)
 
 
 
@@ -72,13 +78,15 @@ def fiets_registreren():
                             stickercode = randint(10000, 99999)
                             stickercode2 = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
                             stickercode2.grid(row=5, column=3, sticky=E)
+                            if str(telegramid_entry.get()) == "":
+                                telegramid_entry = 0
                             writer = csv.writer(schrijven, delimiter=';')
-                            writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
+                            writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get()), str(telegramid_entry.get())))
                             del lijst[:]
                             checkregistratieknop.config(state="disabled")
 
                 checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
-                checkregistratieknop.grid(row=5, column=2)
+                checkregistratieknop.grid(row=7, column=2)
 
             else:
                 vol = Label(master=subwindow, text='Alle stalplaatsen zijn momenteel in gebruik, probeer het later opnieuw.')
@@ -208,6 +216,10 @@ def fiets_ophalen():
                             kluisopen = Label(master=subwindow3,text='Uw fietsenkluis is open!',height=1)
                             kluisopen.grid(row=2, column=2)
                             regel_verwijderen(str(stickercode_entry.get()))
+
+                            telegramid = row[5]
+                            link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
+                            webbrowser.open(link)
                         else:
                             incorrectWachtwoord += 1
                     if incorrectWachtwoord == len(row):
@@ -303,11 +315,24 @@ def informatie_opvragen():
         def checkwachtwoord():
             with open('fietsen.csv', 'r') as lezen:
                 reader = csv.reader(lezen, delimiter=';')
-                list = []
+                email_onbekend = 0
+                stickercode_onbekend = 0
+                rows = 0
                 for row in reader:
+                    rows += 1
                     if str(email_entry.get()) == row[4] and str(stickercode_entry.get()) == row[0]:
                         wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[3])
                         wachtwoord.grid(row=10, column=1, sticky=E)
+                    if str(email_entry.get()) != row[4]:
+                        email_onbekend += 1
+                    if str(stickercode_entry.get()) != row[0]:
+                        stickercode_onbekend += 1
+                if email_onbekend == rows:
+                    email = Label(master=subwindow7, text="Email onbekend: ")
+                    email.grid(row=10, column=1, sticky=E)
+                if stickercode_onbekend == rows:
+                    stickercode = Label(master=subwindow7, text="stickercode onbekend: ")
+                    stickercode.grid(row=15, column=1, sticky=E)
 
         wachtwoordknop = Button(master=subwindow7, text='Vraag mijn wachtwoord op', command=checkwachtwoord)
         wachtwoordknop.grid(row=1, column=3)
