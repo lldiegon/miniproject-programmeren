@@ -212,7 +212,7 @@ def fiets_ophalen():
                             incorrectpassword = Label(master=subwindow3,text='Incorrect wachtwoord!',height=1)
                             incorrectpassword.grid(row=3, column=2)
 
-        checkophalenknop = Button(master=subwindow3, text='Stal fiets', command=checkophalen)
+        checkophalenknop = Button(master=subwindow3, text='Haal fiets op', command=checkophalen)
         checkophalenknop.grid(row=3, column=1)
 
 def regel_verwijderen(stickercode):
