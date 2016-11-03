@@ -12,6 +12,10 @@ background_label = Label(root, image=photo)
 background_label.grid()
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+infile = open('fietsen.csv')
+infile2 = open('stalling.csv')
+lezen = infile.read()
+
 def fiets_registreren():
     def close():
         subwindow.withdraw()
@@ -37,7 +41,6 @@ def fiets_registreren():
                 if len(lijst) != 50:
                     stickercode = randint(10000, 99999)
 
-                    writer = csv.writer(schrijven, delimiter=';')
                     voornaam = Label(master=subwindow, text="Voornaam")
                     achternaam = Label(master=subwindow, text="Achternaam")
                     email = Label(master=subwindow, text="Email")
@@ -62,14 +65,15 @@ def fiets_registreren():
 
 
                     def checkregistratie():
-                        if str('@') not in str(email_entry) or str('.') not in str(email_entry) or len(str(email_entry)) < 6 or len(str(email_entry)) > 30:
+                        if str('@') not in str(email_entry) or str('.') not in str(email_entry) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                             emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
                             emailcorrect.grid(row=6, column=2)
 
-                        if len(str(wachtwoord_entry)) < 8 or len(str(wachtwoord_entry)) > 12:
+                        if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                             wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2)
                             wachtwoordcorrect.grid(row=6, column=2)
                         else:
+                            writer = csv.writer(schrijven, delimiter=';')
                             writer.writerow((stickercode, voornaam_entry, achternaam_entry, wachtwoord_entry, email_entry))
                             del lijst[:]
 
@@ -109,11 +113,11 @@ def fiets_registreren():
 
 
                 def checkregistratie():
-                    if str('@') not in email_entry or str('.') not in email_entry or len(str(email_entry)) < 6 or len(str(email_entry)) > 30:
+                    if str('@') not in email_entry or str('.') not in email_entry or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                         emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
                         emailcorrect.grid(row=2, column=2)
 
-                    if len(str(wachtwoord_entry)) < 8 or len(str(wachtwoord_entry)) > 12:
+                    if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                         wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2)
                         wachtwoordcorrect.grid(row=3, column=2)
                     else:
