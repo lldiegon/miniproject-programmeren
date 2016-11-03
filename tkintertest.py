@@ -196,23 +196,19 @@ def fiets_ophalen():
             list.append(row[0])
 
         def checkophalen():
-            if stickercode not in list:
+            if str(stickercode_entry.get()) not in list:
                 nietindatabase = Label(master=subwindow3,text='Deze stickercode komt niet overeen met de database!',height=1)
                 nietindatabase.grid(row=3, column=2)
-            elif stickercode in list:
-                wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
+            elif str(stickercode_entry.get()) in list:
                 with open('fietsen.csv', 'r') as lezen:
                     reader = csv.reader(lezen, delimiter=';')
                     for row in reader:
-                        if row[0] == stickercode and row[3] == wachtwoord:
-                            kluisopen = Label(master=subwindow3,text='Deze stickercode komt niet overeen met de database!',height=1)
+                        if row[0] == str(stickercode_entry.get()) and row[3] == str(wachtwoord_entry.get()):
+                            kluisopen = Label(master=subwindow3,text='Uw fietsenkluis is open!',height=1)
                             kluisopen.grid(row=2, column=2)
                             regel_verwijderen(stickercode)
 
-                            telegramid = row[5]
-                            link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
-                            webbrowser.open(link)
-                        if row[0] == stickercode and row[3] != wachtwoord:
+                        if row[3] != str(wachtwoord_entry.get()):
                             incorrectpassword = Label(master=subwindow3,text='Incorrect wachtwoord!',height=1)
                             incorrectpassword.grid(row=3, column=2)
 
@@ -241,30 +237,29 @@ def regel_verwijderen(stickercode):
             i = i + 1
 
 def informatie_opvragen():
-    subwindow3 = Toplevel(master=root)
-    subwindow3.geometry('575x390')
+    subwindow4 = Toplevel(master=root)
+    subwindow4.geometry('575x390')
 
-    background_label = Label(subwindow3, image=photo)
+    background_label = Label(subwindow4, image=photo)
     background_label.grid()
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    label = Label(master=subwindow3,text='U heeft gekozen voor: Ik wil informatie opvragen.',height=1)
+    label = Label(master=subwindow4,text='U heeft gekozen voor: Ik wil informatie opvragen.',height=1)
     label.grid(row=0, column=2)
 
     def informatie_keuze_1():
         with open('stalling.csv', 'r', newline='') as lezen:
-            with open('stalling.csv', 'a', newline='') as schrijven:
-                reader = csv.reader(lezen, delimiter=';')
-                lijst = []
-                print("U heeft gekozen voor: Ik wil weten hoeveel stalplaatsen nog vrij zijn.")
-                for row1 in reader:
-                    lijst.append(row1[0])
-                stalplaatsenbezet = len(lijst)
-                stalplaatsenbeschikbaar = 50 - stalplaatsenbezet
-                if stalplaatsenbeschikbaar >= 1:
-                    print('Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.')
-                if stalplaatsenbeschikbaar == 0:
-                    print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
+            reader = csv.reader(lezen, delimiter=';')
+            lijst = []
+            print("U heeft gekozen voor: Ik wil weten hoeveel stalplaatsen nog vrij zijn.")
+            for row1 in reader:
+                lijst.append(row1[0])
+            stalplaatsenbezet = len(lijst)
+            stalplaatsenbeschikbaar = 50 - stalplaatsenbezet
+            if stalplaatsenbeschikbaar >= 1:
+                print('Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.')
+            if stalplaatsenbeschikbaar == 0:
+                print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
 
     def informatie_keuze_2():
         print("De 1e dag is gratis, daarna betaal je 50 cent per dag.")
