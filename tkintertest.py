@@ -76,7 +76,8 @@ def fiets_registreren():
                             writer = csv.writer(schrijven, delimiter=';')
                             writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                             del lijst[:]
-
+                            checkregistratieknop.config(state="disabled")
+                            
                 checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
                 checkregistratieknop.grid(row=5, column=2)
 
