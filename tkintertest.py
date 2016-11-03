@@ -2,6 +2,7 @@ from tkinter import *
 import csv
 from random import randint
 from datetime import datetime
+import webbrowser
 
 root = Tk()
 root.title('De NS-Fietsenstalling')
@@ -122,7 +123,7 @@ def fiets_registreren():
                         del lijst[:]
                         checkregistratieknop.config(state="disabled")
 
-            checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie())
+            checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
             checkregistratieknop.grid(row=4, column=1)
 
 def fiets_stallen():
@@ -159,26 +160,99 @@ def fiets_stallen():
                             label.grid(row=2, column=2)
                             checkstallingknop.config(state="disabled")
                 elif str(stickercode_entry.get()) not in list:
-                    label = Label(master=subwindow2,text='Deze stickercode komt niet overeen met de database!',height=1)
-                    label.grid(row=2, column=2)
+                    nietindatabase = Label(master=subwindow2,text='Deze stickercode komt niet overeen met de database!',height=1)
+                    nietindatabase.grid(row=2, column=2)
 
-    checkstallingknop = Button(master=subwindow2, text='Stal fiets', command=checkstalling())
+    checkstallingknop = Button(master=subwindow2, text='Stal fiets', command=checkstalling)
     checkstallingknop.grid(row=4, column=1)
+
+
+def fiets_ophalen():
+    subwindow2 = Toplevel(master=root)
+    subwindow2.geometry('575x390')
+
+    background_label = Label(subwindow2, image=photo)
+    background_label.grid()
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    label = Label(master=subwindow2,text='U heeft gekozen voor: Ik wil mijn fiets ophalen.',height=1)
+    label.grid(row=0, column=2)
+
+    stickercode = Label(master=subwindow2, text="Voor hier uw stickercode in: ")
+    stickercode_entry = Entry(master=subwindow2)
+    wachtwoord = Label(master=subwindow2, text="wachtwoord")
+    wachtwoord_entry = Entry(master=subwindow2, show="*")
+
+    stickercode.grid(row=1, column=1, sticky=E)
+    stickercode_entry.grid(row=1, column=2, sticky=E)
+    wachtwoord.grid(row=2, column=1, sticky=E)
+    wachtwoord_entry.grid(row=2, column=2)
+
+    with open('fietsen.csv', 'r') as lezen:
+        reader = csv.reader(lezen, delimiter=';')
+        list = []
+        for row in reader:
+            list.append(row[0])
+
+        def checkophalen():
+            if stickercode not in list:
+                nietindatabase = Label(master=subwindow2,text='Deze stickercode komt niet overeen met de database!',height=1)
+                nietindatabase.grid(row=3, column=2)
+            elif stickercode in list:
+                wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
+                with open('fietsen.csv', 'r') as lezen:
+                    reader = csv.reader(lezen, delimiter=';')
+                    for row in reader:
+                        if row[0] == stickercode and row[3] == wachtwoord:
+                            kluisopen = Label(master=subwindow2,text='Deze stickercode komt niet overeen met de database!',height=1)
+                            kluisopen.grid(row=2, column=2)
+                            regel_verwijderen(stickercode)
+
+                            telegramid = row[5]
+                            link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
+                            webbrowser.open(link)
+                        if row[0] == stickercode and row[3] != wachtwoord:
+                            incorrectpassword = Label(master=subwindow2,text='Incorrect wachtwoord!',height=1)
+                            incorrectpassword.grid(row=3, column=2)
+
+        checkophalenknop = Button(master=subwindow2, text='Stal fiets', command=checkophalen)
+        checkophalenknop.grid(row=3, column=1)
+
+def regel_verwijderen(stickercode):
+    with open('stalling.csv', 'r') as lezen:
+        reader = csv.reader(lezen, delimiter=';')
+        stickercodes = []
+        voornamen = []
+        achternamen = []
+        datums = []
+        for row in reader:
+            if row[0] != stickercode:
+                stickercodes.append(row[0])
+                voornamen.append(row[1])
+                achternamen.append(row[2])
+                datums.append(row[3])
+
+    with open('stalling.csv', 'w', newline='') as schrijven:
+        writer = csv.writer(schrijven, delimiter=';')
+        i = 0
+        while i < len(stickercodes):
+            writer.writerow((stickercodes[i] , voornamen[i], achternamen[i], datums[i]))
+            i = i + 1
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
 registreerknop.grid(row=0, column=1)
 
-stalknop = Button(master=root, text='Ik wil mijn fiets stallen')
-stalknop.grid(row=1, column=1, command=fiets_stallen())
+stalknop = Button(master=root, text='Ik wil mijn fiets stallen', command=fiets_stallen)
+stalknop.grid(row=1, column=1)
 
-ophaalknop = Button(master=root, text='Ik wil mijn fiets ophalen')
+ophaalknop = Button(master=root, text='Ik wil mijn fiets ophalen', command=fiets_ophalen)
 ophaalknop.grid(row=2, column=1)
 
-informatieopvragenknop = Button(master=root, text='Ik wil informatie opvragen')
+informatieopvragenknop = Button(master=root, text='Ik wil informatie opvragen', command=fiets_ophalen)
 informatieopvragenknop.grid(row=3, column=1)
 
-stopknop = Button(master=root, text='Ik wil stoppen')
+stopknop = Button(master=root, text='Ik wil stoppen', command=fiets_ophalen)
 stopknop.grid(row=4, column=1)
 
 
