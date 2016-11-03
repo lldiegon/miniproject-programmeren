@@ -68,7 +68,7 @@ def fiets_registreren():
                         print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                         wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email))
+                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, telegramid))
                     del lijst[:]
 
                 else:
@@ -94,7 +94,7 @@ def fiets_registreren():
                     print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                     wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email))
+                writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, telegramid))
 
 def fiets_stallen():
     print("U heeft gekozen voor: Ik wil mijn fiets stallen.")
