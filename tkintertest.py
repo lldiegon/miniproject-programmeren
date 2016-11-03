@@ -44,6 +44,11 @@ def fiets_registreren():
                     wachtwoord = Label(master=subwindow, text="wachtwoord")
                     stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
 
+                    global voornaam_entry
+                    global achternaam_entry
+                    global email_entry
+                    global wachtwoord_entry
+
                     voornaam_entry = Entry(master=subwindow)
                     achternaam_entry = Entry(master=subwindow)
                     email_entry = Entry(master=subwindow)
@@ -62,13 +67,13 @@ def fiets_registreren():
 
 
                     def checkregistratie():
-                        if str('@') not in email_entry or str('.') not in email_entry or len(email_entry) < 6 or len(email_entry) > 30:
+                        if str('@') not in str(email_entry) or str('.') not in str(email_entry) or len(email_entry) < 6 or len(email_entry) > 30:
                             emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2)
-                            emailcorrect.grid(row=2, column=2)
+                            emailcorrect.grid(row=6, column=2)
 
                         if len(wachtwoord_entry) < 8 or len(wachtwoord_entry) > 12:
                             wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2)
-                            wachtwoordcorrect.grid(row=3, column=2)
+                            wachtwoordcorrect.grid(row=6, column=2)
                         else:
                             writer.writerow((stickercode, voornaam_entry, achternaam_entry, wachtwoord_entry, email_entry))
                             del lijst[:]
@@ -89,6 +94,11 @@ def fiets_registreren():
                 email = Label(master=subwindow, text="Email")
                 wachtwoord = Label(master=subwindow, text="wachtwoord")
                 stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
+
+                global voornaam_entry
+                global achternaam_entry
+                global email_entry
+                global wachtwoord_entry
 
                 voornaam_entry = Entry(master=subwindow)
                 achternaam_entry = Entry(master=subwindow)
