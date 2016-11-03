@@ -53,8 +53,8 @@ def fiets_registreren():
                     voornaam = str(input("Vul uw voornaam in: "))
                     achternaam = str(input("Vul uw achternaam in: "))
                     telegramid = str(input("Vul uw telegramid in (aanbevolen): ")
-                    stickercode = 5000
-                    #stickercode = randint(10000, 99999)
+                    
+                    stickercode = randint(10000, 99999)
                     print('Uw stickercode is: ' + str(stickercode))
                     email = str(input("Vul uw email in: "))
 
