@@ -1,5 +1,4 @@
 """GUI voor het miniproject met behulp van tkinter
-
 problemen:  -hoe ervoor te zorgen dat als je op bijv. 'registreer' drukt de functie fiets_registreren(self) wordt uitgevoerd in de window van tkinter en niet in pycharm
             -een achtergrond te krijgen, ik heb een foto en ik heb 3labes waar je je gevens in kan voeren maar de foto overlapt de 3labels"""
 
@@ -7,8 +6,10 @@ problemen:  -hoe ervoor te zorgen dat als je op bijv. 'registreer' drukt de func
 from tkinter import *
 import csv
 from random import randint
+from datetime import datetime
 
 infile = open('fietsen.csv')
+infile2 = open('stalling.csv')
 lezen = infile.read()
 #creeërt hier de root window
 root = Tk()
@@ -89,13 +90,19 @@ class Window(Frame):
 
                         stickercode = randint(10000, 99999)
                         print('Uw stickercode is: ' + str(stickercode))
+                        email = str(input("Vul uw email in: "))
+
+                        while str('@') not in email or str('.') not in email or len(email) < 6 or len(email) > 30:
+                            print("Dit is geen geldig email adres!")
+                            email = str(input("Vul uw email in: "))
+
                         wachtwoord = str(input("Vul een wachtwoord in: "))
 
                         while len(wachtwoord) < 8 or len(wachtwoord) > 12:
                             print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                             wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                        writer.writerow((stickercode, voornaam, achternaam, wachtwoord))
+                        writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email))
                         del lijst[:]
 
                     else:
@@ -108,47 +115,99 @@ class Window(Frame):
 
                     stickercode = randint(10000, 99999)
                     print('Uw stickercode is: ' + str(stickercode))
+                    email = str(input("Vul uw email in: "))
+
+                    while str('@') not in email or str('.') not in email or len(email) < 6 or len(email) > 30:
+                        print("Dit is geen geldig email adres!")
+                        email = str(input("Vul uw email in: "))
+
                     wachtwoord = str(input("Vul een wachtwoord in: "))
 
                     while len(wachtwoord) < 8 or len(wachtwoord) > 12:
                         print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                         wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord))
+                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email))
 
     def fiets_stallen(self):
         print("U heeft gekozen voor: Ik wil mijn fiets stallen.")
+        stickercode = input('Voer uw stickercode in: ')
+
+        with open('stalling.csv', 'a', newline='') as schrijven:
+            with open('fietsen.csv', 'r') as lezen:
+                reader = csv.reader(lezen, delimiter=';')
+                list = []
+                for row in reader:
+                        list.append(row[0])
+                if stickercode in list:
+                        writer = csv.writer(schrijven, delimiter=';')
+                        if row[0] == stickercode:
+                            voornaam = row[1]
+                            achternaam = row[2]
+                            writer.writerow((stickercode, voornaam, achternaam, str(datetime.now())))
+                            print("Uw fiets is gestalt!")
+                elif stickercode not in list:
+                    print("Deze stickercode komt niet overeen met de database!")
 
     def fiets_ophalen(self):
         print("U heeft gekozen voor: Ik wil mijn fiets ophalen.")
         stickercode = input('Voer uw stickercode in: ')
-        wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
-        incorrecteCode = 0
 
         with open('fietsen.csv', 'r') as lezen:
             reader = csv.reader(lezen, delimiter=';')
-            lijst = []
+            list = []
             for row in reader:
-                if row[1] == stickercode:
-                    if row[1] == wachtwoord:
-                        print('Code correct!')
-                    else:
-                        print('Het wachtwoord komt niet overeen met de opgegeven code!')
+                list.append(row[0])
+            if stickercode not in list:
+                print('Deze stickercode komt niet overeen met de database!')
+            elif stickercode in list:
+                wachtwoord = input('Voer uw bijbehorende wachtwoord in: ')
+                with open('fietsen.csv', 'r') as lezen:
+                    reader = csv.reader(lezen, delimiter=';')
+                    for row in reader:
+                        if row[0] == stickercode and row[3] == wachtwoord:
+                            print('Kluis is open')
+                            regel_verwijderen(stickercode)
+                        if row[0] == stickercode and row[3] != wachtwoord:
+                            print('Wachtwoord is incorrect')
+    def regel_verwijderen(stickercode):
+        with open('stalling.csv', 'r') as lezen:
+            reader = csv.reader(lezen, delimiter=';')
+            stickercodes = []
+            voornamen = []
+            achternamen = []
+            datums = []
+            for row in reader:
+                if row[0] != stickercode:
+                    stickercodes.append(row[0])
+                    voornamen.append(row[1])
+                    achternamen.append(row[2])
+                    datums.append(row[3])
 
-                else:
-                    incorrecteCode = incorrecteCode + 1
-        if incorrecteCode == len(lijst):
-            print('Deze code komt niet overeen met een van de unieke codes!')
+        with open('stalling.csv', 'w', newline='') as schrijven:
+            writer = csv.writer(schrijven, delimiter=';')
+            i = 0
+            while i < len(stickercodes):
+                writer.writerow((stickercodes[i] , voornamen[i], achternamen[i], datums[i]))
+                i = i + 1
+
 
     def informatie_opvragen(self):
         print("U heeft gekozen voor: Ik wil informatie opvragen.")
+
         print("1: Ik wil weten hoeveel stalplaatsen er nog beschikbaar zijn.")
-        print("2: Keuze 2.")
+        print("2: Ik wil weten hoeveel het kost om mijn fiets te stallen.")
+        print("3: Ik ben mijn wachtwoord vergeten.")
+        keuzes = [1, 2, 3]
         informatie_keuze = int(input('Vul een nummer voor de keuze in: '))
 
+        while informatie_keuze not in keuzes:
+            print('Dit is geen optie, kies opnieuw')
+            informatie_keuze = int(input('Vul een nummer voor de keuze in: '))
+
         if informatie_keuze == 1:
-            with open('fietsen.csv', 'r', newline='') as lezen:
-                with open('fietsen.csv', 'a', newline='') as schrijven:
+            with open('stalling.csv', 'r', newline='') as lezen:
+                with open('stalling.csv', 'a', newline='') as schrijven:
                     reader = csv.reader(lezen, delimiter=';')
                     lijst = []
                     print("U heeft gekozen voor: Ik wil weten hoeveel stalplaatsen nog vrij zijn.")
@@ -162,7 +221,21 @@ class Window(Frame):
                         print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
 
         if informatie_keuze == 2:
-            print("U heeft gekozen voor keuze 2")
+            print("De 1e dag is gratis, daarna betaal je 50 cent per dag.")
+
+        if informatie_keuze == 3:
+            mail = input(print('Wat is uw email?:'))
+            stickercode = input(print('Wat is de stickercode?:'))
+
+            with open('fietsen.csv', 'r') as lezen:
+                reader = csv.reader(lezen, delimiter=';')
+                list = []
+                for row in reader:
+                    if mail == row[3] and stickercode == row[0]:
+                        print('Uw wachtwoord is:', row[4])
+
+    def stoppen():
+    print("U heeft gekozen voor: Ik wil stoppen.")
 
     def client_exit(self):
         exit()
@@ -182,4 +255,3 @@ root.geometry('575x390')
 app = Window(root)
 #mainloop
 root.mainloop()
-
