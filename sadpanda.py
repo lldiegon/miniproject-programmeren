@@ -235,7 +235,7 @@ class Window(Frame):
                         print('Uw wachtwoord is:', row[4])
 
     def stoppen():
-    print("U heeft gekozen voor: Ik wil stoppen.")
+        print("U heeft gekozen voor: Ik wil stoppen.")
 
     def client_exit(self):
         exit()
