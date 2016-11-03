@@ -1,7 +1,7 @@
 from tkinter import *
 import csv
 from random import randint
-from datetime import datetime
+from time import gmtime, strftime
 import webbrowser
 
 root = Tk()
@@ -156,7 +156,7 @@ def fiets_stallen():
                         if row[0] == str(stickercode_entry.get()):
                             voornaam = row[1]
                             achternaam = row[2]
-                            writer.writerow((str(stickercode_entry.get()), voornaam, achternaam, str(datetime.now())))
+                            writer.writerow((str(stickercode_entry.get()), voornaam, achternaam, str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))))
                             label = Label(master=subwindow2,text='Uw fiets is gestald!',height=1)
                             label.grid(row=2, column=2)
                             checkstallingknop.config(state="disabled")
@@ -305,9 +305,9 @@ def informatie_opvragen():
                 reader = csv.reader(lezen, delimiter=';')
                 list = []
                 for row in reader:
-                    if str(email_entry.get()) == row[3] and str(stickercode_entry.get()) == row[0]:
-                        wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[4])
-                        wachtwoord.grid(row=1, column=1, sticky=E)
+                    if str(email_entry.get()) == row[4] and str(stickercode_entry.get()) == row[0]:
+                        wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[3])
+                        wachtwoord.grid(row=10, column=1, sticky=E)
 
         wachtwoordknop = Button(master=subwindow7, text='Vraag mijn wachtwoord op', command=checkwachtwoord)
         wachtwoordknop.grid(row=1, column=3)
@@ -342,5 +342,6 @@ stopknop = Button(master=root, text='Ik wil stoppen', command=stoppen)
 stopknop.grid(row=4, column=1)
 
 
+root.iconbitmap('favicon.ico')
 root.geometry('575x390')
 root.mainloop()
