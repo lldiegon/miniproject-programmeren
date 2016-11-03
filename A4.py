@@ -1,4 +1,4 @@
-import csv
+import cs
 from random import randint
 from datetime import datetime
 
