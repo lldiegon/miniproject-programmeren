@@ -72,9 +72,10 @@ def fiets_registreren():
                             wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2)
                             wachtwoordcorrect.grid(row=6, column=2)
                         else:
-                            writer = csv.writer(schrijven, delimiter=';')
-                            writer.writerow((stickercode, voornaam_entry, achternaam_entry, wachtwoord_entry, email_entry))
-                            del lijst[:]
+                            with open('fietsen.csv', 'a', newline='') as schrijven:
+                                writer = csv.writer(schrijven, delimiter=';')
+                                writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get)))
+                                del lijst[:]
 
                     checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
                     checkregistratieknop.grid(row=5, column=2)
