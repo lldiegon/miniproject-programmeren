@@ -44,11 +44,6 @@ def fiets_registreren():
                     wachtwoord = Label(master=subwindow, text="wachtwoord")
                     stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
 
-                    global voornaam_entry
-                    global achternaam_entry
-                    global email_entry
-                    global wachtwoord_entry
-
                     voornaam_entry = Entry(master=subwindow)
                     achternaam_entry = Entry(master=subwindow)
                     email_entry = Entry(master=subwindow)
@@ -94,11 +89,6 @@ def fiets_registreren():
                 email = Label(master=subwindow, text="Email")
                 wachtwoord = Label(master=subwindow, text="wachtwoord")
                 stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
-
-                global voornaam_entry
-                global achternaam_entry
-                global email_entry
-                global wachtwoord_entry
 
                 voornaam_entry = Entry(master=subwindow)
                 achternaam_entry = Entry(master=subwindow)
