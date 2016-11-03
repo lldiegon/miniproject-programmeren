@@ -265,11 +265,9 @@ def informatie_opvragen():
             stalplaatsenbezet = len(lijst)
             stalplaatsenbeschikbaar = 50 - stalplaatsenbezet
             if stalplaatsenbeschikbaar >= 1:
-                print('Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.')
                 stalplaatsen = Label(master=subwindow5,text='Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.',height=1)
                 stalplaatsen.grid(row=1, column=2)
             if stalplaatsenbeschikbaar == 0:
-                print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
                 vol = Label(master=subwindow5,text='Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.',height=1)
                 vol.grid(row=1, column=2)
 
@@ -302,13 +300,17 @@ def informatie_opvragen():
         email.grid(row=2, column=1, sticky=E)
         email_entry.grid(row=2, column=2, sticky=E)
 
-        with open('fietsen.csv', 'r') as lezen:
-            reader = csv.reader(lezen, delimiter=';')
-            list = []
-            for row in reader:
-                if str(email_entry.get()) == row[3] and str(stickercode_entry.get()) == row[0]:
-                    wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[4])
-                    wachtwoord.grid(row=1, column=1, sticky=E)
+        def checkwachtwoord():
+            with open('fietsen.csv', 'r') as lezen:
+                reader = csv.reader(lezen, delimiter=';')
+                list = []
+                for row in reader:
+                    if str(email_entry.get()) == row[3] and str(stickercode_entry.get()) == row[0]:
+                        wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[4])
+                        wachtwoord.grid(row=1, column=1, sticky=E)
+
+        wachtwoordknop = Button(master=subwindow7, text='Vraag mijn wachtwoord op', command=checkwachtwoord)
+        wachtwoordknop.grid(row=1, column=3)
 
 
     keuze1knop = Button(master=subwindow4, text='Ik wil weten hoeveel stalplaatsen nog vrij zijn.', command=informatie_keuze_1)
