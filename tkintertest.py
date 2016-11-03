@@ -286,7 +286,7 @@ def informatie_opvragen():
     keuze3knop.grid(row=2, column=1)
 
 def stoppen():
-    print("U heeft gekozen voor: Ik wil stoppen.")
+    exit()
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
