@@ -55,7 +55,6 @@ def fiets_registreren():
                 achternaam.grid(row=2, column=1, sticky=E)
                 email.grid(row=3, column=1, sticky=E)
                 wachtwoord.grid(row=4, column=1, sticky=E)
-                stickercode.grid(row=4, column=3, sticky=E)
 
                 voornaam_entry.grid(row=1, column=2)
                 achternaam_entry.grid(row=2, column=2)
@@ -74,8 +73,9 @@ def fiets_registreren():
                         wachtwoordcorrect.grid(row=6, column=2)
                     else:
                         with open('fietsen.csv', 'a', newline='') as schrijven:
+                            stickercode.grid(row=5, column=3, sticky=E)
                             writer = csv.writer(schrijven, delimiter=';')
-                            writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get)))
+                            writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                             del lijst[:]
 
                 checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie)
@@ -103,7 +103,6 @@ def fiets_registreren():
             achternaam.grid(row=2, column=1, sticky=E)
             email.grid(row=3, column=1, sticky=E)
             wachtwoord.grid(row=4, column=1, sticky=E)
-            stickercode.grid(row=4, column=3, sticky=E)
 
             voornaam_entry.grid(row=1, column=2)
             achternaam_entry.grid(row=2, column=2)
@@ -120,8 +119,9 @@ def fiets_registreren():
                     wachtwoordcorrect.grid(row=3, column=2)
                 else:
                     with open('fietsen.csv', 'a', newline='') as schrijven:
+                        stickercode.grid(row=5, column=3, sticky=E)
                         writer = csv.writer(schrijven, delimiter=';')
-                        writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get)))
+                        writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                         del lijst[:]
 
             checkregistratieknop = Button(master=subwindow, text='Registreren', command=checkregistratie())
