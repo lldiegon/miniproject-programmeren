@@ -206,7 +206,7 @@ def fiets_ophalen():
                         if row[0] == str(stickercode_entry.get()) and row[3] == str(wachtwoord_entry.get()):
                             kluisopen = Label(master=subwindow3,text='Uw fietsenkluis is open!',height=1)
                             kluisopen.grid(row=2, column=2)
-                            regel_verwijderen(stickercode)
+                            regel_verwijderen(str(stickercode_entry.get()))
 
                         if row[3] != str(wachtwoord_entry.get()):
                             incorrectpassword = Label(master=subwindow3,text='Incorrect wachtwoord!',height=1)
@@ -216,6 +216,7 @@ def fiets_ophalen():
         checkophalenknop.grid(row=3, column=1)
 
 def regel_verwijderen(stickercode):
+    print('werkt')
     with open('stalling.csv', 'r') as lezen:
         reader = csv.reader(lezen, delimiter=';')
         stickercodes = []
@@ -223,7 +224,7 @@ def regel_verwijderen(stickercode):
         achternamen = []
         datums = []
         for row in reader:
-            if row[0] != stickercode:
+            if row[0] != str(stickercode):
                 stickercodes.append(row[0])
                 voornamen.append(row[1])
                 achternamen.append(row[2])
@@ -286,7 +287,7 @@ def informatie_opvragen():
     keuze3knop.grid(row=2, column=1)
 
 def stoppen():
-    exit()
+    print("U heeft gekozen voor: Ik wil stoppen.")
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
