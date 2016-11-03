@@ -52,8 +52,8 @@ def fiets_registreren():
                     writer = csv.writer(schrijven, delimiter=';')
                     voornaam = str(input("Vul uw voornaam in: "))
                     achternaam = str(input("Vul uw achternaam in: "))
-                    telegramid = str(input("Vul uw telegramid in (aanbevolen): ")
-                    
+                    Telegramid = str(input("Vul uw telegram-id in: "))
+
                     stickercode = randint(10000, 99999)
                     print('Uw stickercode is: ' + str(stickercode))
                     email = str(input("Vul uw email in: "))
@@ -68,7 +68,7 @@ def fiets_registreren():
                         print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                         wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, telegramid))
+                    writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, Telegramid))
                     del lijst[:]
 
                 else:
@@ -78,7 +78,7 @@ def fiets_registreren():
                 writer = csv.writer(schrijven, delimiter=';')
                 voornaam = str(input("Vul uw voornaam in: "))
                 achternaam = str(input("Vul uw achternaam in: "))
-                telegramid = str(input("Vul uw telegramid in (aanbevolen): ")
+                Telegramid = str(input("Vul uw telegramid in: "))
 
                 stickercode = randint(10000, 99999)
                 print('Uw stickercode is: ' + str(stickercode))
@@ -94,7 +94,7 @@ def fiets_registreren():
                     print("Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!")
                     wachtwoord = str(input("Vul een wachtwoord in: "))
 
-                writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, telegramid))
+                writer.writerow((stickercode, voornaam, achternaam, wachtwoord, email, Telegramid))
 
 def fiets_stallen():
     print("U heeft gekozen voor: Ik wil mijn fiets stallen.")
@@ -138,7 +138,6 @@ def fiets_ophalen():
                         telegramid = row[5]
                         link = 'https://api.telegram.org/bot275900175:AAGVxY2ZrQiEcNRQQAiQnU5e80GzM_5ODvw/sendmessage?chat_id=' + str(telegramid) + '&text=Uw%20fiets%20is%20opgehaald%20vanaf%20de%20stalling,%20was%20u%20dit%20niet?%20bel%20dan%20snel%20naar%20onze%20helpdesk:%200900-0123456'
                         webbrowser.open(link)
-                        print("Er is een beveiligingsbericht naar uw telegram gestuurd")
                     if row[0] == stickercode and row[3] != wachtwoord:
                         print('Wachtwoord is incorrect')
 
