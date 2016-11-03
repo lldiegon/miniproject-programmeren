@@ -138,7 +138,7 @@ def fiets_stallen():
     label = Label(master=subwindow2,text='U heeft gekozen voor: Ik wil mijn fiets stallen.',height=1)
     label.grid(row=0, column=2)
 
-    stickercode = Label(master=subwindow2, text="Voor hier uw stickercode in: ")
+    stickercode = Label(master=subwindow2, text="Voer hier uw stickercode in: ")
     stickercode_entry = Entry(master=subwindow2)
 
     stickercode.grid(row=1, column=1, sticky=E)
@@ -157,7 +157,7 @@ def fiets_stallen():
                             voornaam = row[1]
                             achternaam = row[2]
                             writer.writerow((str(stickercode_entry.get()), voornaam, achternaam, str(datetime.now())))
-                            label = Label(master=subwindow2,text='Uw fiets is gestalt!',height=1)
+                            label = Label(master=subwindow2,text='Uw fiets is gestald!',height=1)
                             label.grid(row=2, column=2)
                             checkstallingknop.config(state="disabled")
                 elif str(stickercode_entry.get()) not in list:
@@ -247,48 +247,81 @@ def informatie_opvragen():
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     label = Label(master=subwindow4,text='U heeft gekozen voor: Ik wil informatie opvragen.',height=1)
-    label.grid(row=0, column=2)
+    label.grid(row=0, column=3)
 
     def informatie_keuze_1():
+        subwindow5 = Toplevel(master=root)
+        subwindow5.geometry('575x390')
+
+        background_label = Label(subwindow5, image=photo)
+        background_label.grid()
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
         with open('stalling.csv', 'r', newline='') as lezen:
             reader = csv.reader(lezen, delimiter=';')
             lijst = []
-            print("U heeft gekozen voor: Ik wil weten hoeveel stalplaatsen nog vrij zijn.")
             for row1 in reader:
                 lijst.append(row1[0])
             stalplaatsenbezet = len(lijst)
             stalplaatsenbeschikbaar = 50 - stalplaatsenbezet
             if stalplaatsenbeschikbaar >= 1:
                 print('Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.')
+                stalplaatsen = Label(master=subwindow5,text='Er zijn nog ' + str(stalplaatsenbeschikbaar) + ' stalplaatsen beschikbaar.',height=1)
+                stalplaatsen.grid(row=1, column=2)
             if stalplaatsenbeschikbaar == 0:
                 print('Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.')
+                vol = Label(master=subwindow5,text='Alle stalplaatsen zijn momenteel bezet, probeer het later opnieuw.',height=1)
+                vol.grid(row=1, column=2)
 
     def informatie_keuze_2():
-        print("De 1e dag is gratis, daarna betaal je 50 cent per dag.")
+        subwindow6 = Toplevel(master=root)
+        subwindow6.geometry('575x390')
+
+        background_label = Label(subwindow6, image=photo)
+        background_label.grid()
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        kosten = Label(master=subwindow6,text='De 1e dag is gratis, daarna betaal je 50 cent per dag.',height=1)
+        kosten.grid(row=1, column=2)
 
     def informatie_keuze_3():
-        mail = input(print('Wat is uw email?:'))
-        stickercode = input(print('Wat is de stickercode?:'))
+        subwindow7 = Toplevel(master=root)
+        subwindow7.geometry('575x390')
+
+        background_label = Label(subwindow7, image=photo)
+        background_label.grid()
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        stickercode = Label(master=subwindow7, text="Voer hier uw stickercode in: ")
+        stickercode_entry = Entry(master=subwindow7)
+        email = Label(master=subwindow7, text="Voer hier uw email in: ")
+        email_entry = Entry(master=subwindow7)
+
+        stickercode.grid(row=1, column=1, sticky=E)
+        stickercode_entry.grid(row=1, column=2, sticky=E)
+        email.grid(row=2, column=1, sticky=E)
+        email_entry.grid(row=2, column=2, sticky=E)
 
         with open('fietsen.csv', 'r') as lezen:
             reader = csv.reader(lezen, delimiter=';')
             list = []
             for row in reader:
-                if mail == row[3] and stickercode == row[0]:
-                    print('Uw wachtwoord is:', row[4])
+                if str(email_entry.get()) == row[3] and str(stickercode_entry.get()) == row[0]:
+                    wachtwoord = Label(master=subwindow7, text="Uw wachtwoord is: " + row[4])
+                    wachtwoord.grid(row=1, column=1, sticky=E)
 
 
-    keuze1knop = Button(master=root, text='Ik wil weten hoeveel stalplaatsen nog vrij zijn.', command=informatie_keuze_1)
-    keuze1knop.grid(row=0, column=1)
+    keuze1knop = Button(master=subwindow4, text='Ik wil weten hoeveel stalplaatsen nog vrij zijn.', command=informatie_keuze_1)
+    keuze1knop.grid(row=1, column=3)
 
-    keuze2knop = Button(master=root, text='Ik wil weten wat de kosten zijn.', command=informatie_keuze_2)
-    keuze2knop.grid(row=1, column=1)
+    keuze2knop = Button(master=subwindow4, text='Ik wil weten wat de kosten zijn.', command=informatie_keuze_2)
+    keuze2knop.grid(row=2, column=3)
 
-    keuze3knop = Button(master=root, text='Ik ben mijn wachtwoord vergeten.', command=informatie_keuze_3)
-    keuze3knop.grid(row=2, column=1)
+    keuze3knop = Button(master=subwindow4, text='Ik ben mijn wachtwoord vergeten.', command=informatie_keuze_3)
+    keuze3knop.grid(row=3, column=3)
 
 def stoppen():
-    print("U heeft gekozen voor: Ik wil stoppen.")
+    exit()
 
 
 registreerknop = Button(master=root, text='Ik wil mijn fiets registreren', command=fiets_registreren)
