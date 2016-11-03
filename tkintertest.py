@@ -38,13 +38,10 @@ def fiets_registreren():
                 lijst.append(row1[0])
 
             if len(lijst) != 50:
-                stickercode = randint(10000, 99999)
-
                 voornaam = Label(master=subwindow, text="Voornaam")
                 achternaam = Label(master=subwindow, text="Achternaam")
                 email = Label(master=subwindow, text="Email")
                 wachtwoord = Label(master=subwindow, text="wachtwoord")
-                stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
 
                 voornaam_entry = Entry(master=subwindow)
                 achternaam_entry = Entry(master=subwindow)
@@ -73,7 +70,9 @@ def fiets_registreren():
                         wachtwoordcorrect.grid(row=6, column=2)
                     else:
                         with open('fietsen.csv', 'a', newline='') as schrijven:
-                            stickercode.grid(row=5, column=3, sticky=E)
+                            stickercode = randint(10000, 99999)
+                            stickercode2 = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
+                            stickercode2.grid(row=5, column=3, sticky=E)
                             writer = csv.writer(schrijven, delimiter=';')
                             writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                             del lijst[:]
@@ -86,13 +85,10 @@ def fiets_registreren():
                 vol.grid(row=4, column=2)
 
         elif len(lijst) == None and len(lijst) < 50:
-            stickercode = randint(10000, 99999)
-
             voornaam = Label(master=subwindow, text="Voornaam")
             achternaam = Label(master=subwindow, text="Achternaam")
             email = Label(master=subwindow, text="Email")
             wachtwoord = Label(master=subwindow, text="wachtwoord")
-            stickercode = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
 
             voornaam_entry = Entry(master=subwindow)
             achternaam_entry = Entry(master=subwindow)
@@ -119,7 +115,9 @@ def fiets_registreren():
                     wachtwoordcorrect.grid(row=3, column=2)
                 else:
                     with open('fietsen.csv', 'a', newline='') as schrijven:
-                        stickercode.grid(row=5, column=3, sticky=E)
+                        stickercode = randint(10000, 99999)
+                        stickercode2 = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode))
+                        stickercode2.grid(row=5, column=3, sticky=E)
                         writer = csv.writer(schrijven, delimiter=';')
                         writer.writerow((str(stickercode), str(voornaam_entry.get()), str(achternaam_entry.get()), str(wachtwoord_entry.get()), str(email_entry.get())))
                         del lijst[:]
