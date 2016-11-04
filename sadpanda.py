@@ -7,7 +7,7 @@ from tkinter import *
 import csv
 from random import randint
 from datetime import datetime
-
+ 
 infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
 lezen = infile.read()
