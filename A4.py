@@ -2,7 +2,7 @@ import csv
 from random import randint
 from datetime import datetime 
 import webbrowser
-
+ 
 infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
 lezen = infile.read()
