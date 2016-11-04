@@ -15,7 +15,7 @@ photo = PhotoImage(file="Background_fietsenstalling.png")
 photo2 = PhotoImage(file="Background_other.png")
 """Geeft de shell de foto das fiets.png als achtergrond."""
 background_label = Label(root, image=photo)
-background_label.place(x=0, y=0, relwidth=1, relheight=1)
+background_label.place(x=0, y=0)
 """zorgt ervoor dat de foto op de achtergrond zit."""
 
 infile = open('fietsen.csv')
@@ -28,7 +28,7 @@ def fiets_registreren():
     subwindow.geometry('700x527')
     """Maakt een subwindow aan voor fiets registreren."""
     background_label = Label(subwindow, image=photo2)
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.place(x=0, y=0)
 
     label = Label(master=subwindow,text='U heeft gekozen voor: Ik wil mijn fiets registreren.', height=1, bg='#fece22')
     label.place(x=210, y=50)
@@ -70,7 +70,7 @@ def fiets_registreren():
                     if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                         emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2, bg='#fece22')
                         emailcorrect.place(x=300, y=300)
-                        """Controleerd zit er een @ in email_entry, zit er een . in email_entry, en is email_entry lang genoeg."""
+                    """Controleerd zit er een @ in email_entry, zit er een . in email_entry, en is email_entry lang genoeg."""
                     if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                         wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2, bg='#fece22')
                         wachtwoordcorrect.place(x=300, y=300)
@@ -115,7 +115,7 @@ def fiets_stallen():
     subwindow2.geometry('700x527')
     """Maakt subwindow."""
     background_label = Label(subwindow2, image=photo2)
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.place(x=0, y=0)
     """Background van subwindow."""
     label = Label(master=subwindow2,text='U heeft gekozen voor: Ik wil mijn fiets stallen.',height=1, bg='#fece22')
     label.place(x=210, y=50)
@@ -154,7 +154,7 @@ def fiets_stallen():
 
     checkstallingknop = Button(master=subwindow2, text='Stal fiets', command=checkstalling, fg='white', bg="#00246a")
     checkstallingknop.place(x=310, y=110)
-    
+
     stopknop = Button(master=subwindow2, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
     stopknop.place(x=600, y=493)
     """Button+locatie"""
@@ -165,7 +165,7 @@ def fiets_ophalen():
     subwindow3.geometry('700x527')
     """Maakt subwindow"""
     background_label = Label(subwindow3, image=photo2)
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.place(x=0, y=0)
     """Maakt background voor subwindow"""
     label = Label(master=subwindow3,text='U heeft gekozen voor: Ik wil mijn fiets ophalen.',height=1, bg='#fece22')
     label.place(x=210, y=50)
@@ -251,7 +251,7 @@ def informatie_opvragen():
     subwindow4.geometry('700x527')
     """Maakt een subwindow"""
     background_label = Label(subwindow4, image=photo2)
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.place(x=0, y=0)
     """Geeft subwindow een background"""
     label = Label(master=subwindow4,text='U heeft gekozen voor: Ik wil informatie opvragen.',height=1, bg='#fece22')
     label.place(x=210, y=50)
@@ -262,7 +262,7 @@ def informatie_opvragen():
         subwindow5.geometry('700x527')
         """Maakt subwindow"""
         background_label = Label(subwindow5, image=photo2)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        background_label.place(x=0, y=0)
         """Geeft subwindow een background"""
         with open('stalling.csv', 'r', newline='') as lezen:
             reader = csv.reader(lezen, delimiter=';')
@@ -290,7 +290,7 @@ def informatie_opvragen():
         subwindow6.geometry('700x527')
         """Maakt subwindow"""
         background_label = Label(subwindow6, image=photo2)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        background_label.place(x=0, y=0)
         """Maakt background"""
         kosten = Label(master=subwindow6,text='De 1e dag is gratis, daarna betaal je 50 cent per dag.',height=1, bg='#fece22')
         kosten.place(x=210, y=50)
@@ -304,7 +304,7 @@ def informatie_opvragen():
         subwindow7.geometry('700x527')
         """Maakt subwindow"""
         background_label = Label(subwindow7, image=photo2)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        background_label.place(x=0, y=0)
         """Maakt background"""
         stickercode = Label(master=subwindow7, text="Voer hier uw stickercode in: ", bg='#fece22')
         stickercode_entry = Entry(master=subwindow7)
