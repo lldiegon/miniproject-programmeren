@@ -7,7 +7,7 @@ infile = open('fietsen.csv')
 infile2 = open('stalling.csv')
 lezen = infile.read()
 
-while True:
+while True: 
     print("1: Ik wil mijn fiets registreren")
     print("2: Ik wil mijn fiets stallen")
     print("3: Ik wil mijn fiets ophalen")
