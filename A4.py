@@ -12,7 +12,7 @@ while True:
     print("2: Ik wil mijn fiets stallen")
     print("3: Ik wil mijn fiets ophalen")
     print("4: Ik wil informatie opvragen")
-    print("5: Ik wil stoppen")
+    print("5: Ik wil stoppen") 
     break
 
 def invoer():
