@@ -1,4 +1,4 @@
-import csv 
+import csv  
 from random import randint
 from datetime import datetime 
 import webbrowser
