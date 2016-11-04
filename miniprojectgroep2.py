@@ -361,11 +361,11 @@ def informatie_opvragen():
                         """Als stickercode entry niet klopt, geef variable +1"""
                 if email_onbekend == rows:
                     email = Label(master=subwindow7, text="Het Email adres komt niet overeen met de database!", bg='#fece22')
-                    email.place(x=140, y=140)
+                    email.place(x=140, y=170)
                     """Als email_onbekend niet bestaat, print(x)"""
                 if stickercode_onbekend == rows:
                     stickercode = Label(master=subwindow7, text="De stickercode komt niet overeen met de database!", bg='#fece22')
-                    stickercode.place(x=140, y=140)
+                    stickercode.place(x=140, y=170)
                     """Als stickercode niet bestaat, print(x)"""
 
         wachtwoordknop = Button(master=subwindow7, text='Vraag mijn wachtwoord op', command=checkwachtwoord, fg='white', bg="#00246a")
