@@ -3,7 +3,7 @@ import csv
 from random import randint
 from time import gmtime, strftime
 import webbrowser
-
+ 
 """root file wordt aangemaakt, dit is de main window."""
 root = Tk()
 root.title('De NS-Fietsenstalling')
