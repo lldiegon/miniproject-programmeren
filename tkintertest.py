@@ -3,7 +3,7 @@ import csv
 from random import randint
 from time import gmtime, strftime
 import webbrowser
- 
+
 """root file wordt aangemaakt, dit is de main window."""
 root = Tk()
 root.title('De NS-Fietsenstalling')
@@ -67,15 +67,18 @@ def fiets_registreren():
                 """locatie van de entry voor de variables."""
                 def checkregistratie():
                     """Functie checkregistratie."""
+                    if str(voornaam_entry.get()) == "" or str(achternaam_entry.get()) == "":
+                        naamcorrect = Label(master=subwindow, text='Vul een voornaam en achternaam in!', height=2, bg='#fece22')
+                        naamcorrect.place(x=200, y=300)
                     if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                         emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2, bg='#fece22')
-                        emailcorrect.place(x=300, y=300)
+                        emailcorrect.place(x=200, y=300)
                     """Controleerd zit er een @ in email_entry, zit er een . in email_entry, en is email_entry lang genoeg."""
                     if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                         wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2, bg='#fece22')
-                        wachtwoordcorrect.place(x=300, y=300)
+                        wachtwoordcorrect.place(x=200, y=300)
                         """Controleerd of wachtwoord_entry lang genoeg is."""
-                    elif str('@') in str(email_entry.get()) and str('.') in str(email_entry.get()) and len(str(email_entry.get())) >= 6 and len(str(email_entry.get())) <= 30 and len(str(wachtwoord_entry.get())) >= 8 and len(str(wachtwoord_entry.get())) <= 12:
+                    elif str(voornaam_entry.get()) != "" and str(achternaam_entry.get()) != "" and str('@') in str(email_entry.get()) and str('.') in str(email_entry.get()) and len(str(email_entry.get())) >= 6 and len(str(email_entry.get())) <= 30 and len(str(wachtwoord_entry.get())) >= 8 and len(str(wachtwoord_entry.get())) <= 12:
                         with open('fietsen.csv', 'a', newline='') as schrijven:
                             stickercode = randint(10000, 99999)
                             stickercode2 = Label(master=subwindow, text="Uw unieke sticker code is: " + str(stickercode), bg='#fece22')
@@ -103,8 +106,8 @@ def fiets_registreren():
         elif len(lijst) == None and len(lijst) < 50:
             registreerformulier()
 
-        #homeknop = Button(master=subwindow, text='Ik wil naar het hoofdmenu', command=subwindow.close_window(), fg='white', bg="red")
-        #homeknop.place(x=520, y=493)
+        homeknop = Button(master=subwindow, text='Dit venster sluiten', command=subwindow.destroy, fg='white', bg="red")
+        homeknop.place(x=485, y=493)
 
         stopknop = Button(master=subwindow, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
         stopknop.place(x=600, y=493)
@@ -154,6 +157,9 @@ def fiets_stallen():
 
     checkstallingknop = Button(master=subwindow2, text='Stal fiets', command=checkstalling, fg='white', bg="#00246a")
     checkstallingknop.place(x=310, y=110)
+
+    homeknop = Button(master=subwindow2, text='Dit venster sluiten', command=subwindow2.destroy, fg='white', bg="red")
+    homeknop.place(x=485, y=493)
 
     stopknop = Button(master=subwindow2, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
     stopknop.place(x=600, y=493)
@@ -217,7 +223,10 @@ def fiets_ophalen():
 
         checkophalenknop = Button(master=subwindow3, text='Haal fiets op', command=checkophalen, fg='white', bg="#00246a")
         checkophalenknop.place(x=300, y=140)
-        """Knop om fiets ophalen af te ronden"""
+        """Knoppen om fiets ophalen af te ronden"""
+        homeknop = Button(master=subwindow3, text='Dit venster sluiten', command=subwindow3.destroy, fg='white', bg="red")
+        homeknop.place(x=485, y=493)
+
         stopknop = Button(master=subwindow3, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
         stopknop.place(x=600, y=493)
 
@@ -256,6 +265,7 @@ def informatie_opvragen():
     label = Label(master=subwindow4,text='U heeft gekozen voor: Ik wil informatie opvragen.',height=1, bg='#fece22')
     label.place(x=210, y=50)
     """Print een stuk tekst in de subwindow"""
+
     def informatie_keuze_1():
         """Functie informatie_keuze__1"""
         subwindow5 = Toplevel(master=root)
@@ -281,11 +291,15 @@ def informatie_opvragen():
                 vol.place(x=210, y=50)
                 """Als er 0 plaatsen beschikbaar zijn print(x)"""
 
+        homeknop = Button(master=subwindow5, text='Dit venster sluiten', command=subwindow5.destroy, fg='white', bg="red")
+        homeknop.place(x=485, y=493)
+
         stopknop = Button(master=subwindow5, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
         stopknop.place(x=600, y=493)
 
     def informatie_keuze_2():
         """Functie Informatie_keuze_2"""
+
         subwindow6 = Toplevel(master=root)
         subwindow6.geometry('700x527')
         """Maakt subwindow"""
@@ -295,6 +309,9 @@ def informatie_opvragen():
         kosten = Label(master=subwindow6,text='De 1e dag is gratis, daarna betaal je 50 cent per dag.',height=1, bg='#fece22')
         kosten.place(x=210, y=50)
         """Maakt label met tekst"""
+        homeknop = Button(master=subwindow6, text='Dit venster sluiten', command=subwindow6.destroy, fg='white', bg="red")
+        homeknop.place(x=485, y=493)
+
         stopknop = Button(master=subwindow6, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
         stopknop.place(x=600, y=493)
 
@@ -354,6 +371,9 @@ def informatie_opvragen():
         wachtwoordknop = Button(master=subwindow7, text='Vraag mijn wachtwoord op', command=checkwachtwoord, fg='white', bg="#00246a")
         wachtwoordknop.place(x=270, y=140)
         """Knop om wachtwoord op te vragen"""
+        homeknop = Button(master=subwindow7, text='Dit venster sluiten', command=subwindow7.destroy, fg='white', bg="red")
+        homeknop.place(x=485, y=493)
+
         stopknop = Button(master=subwindow7, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
         stopknop.place(x=600, y=493)
 
@@ -367,6 +387,9 @@ def informatie_opvragen():
     keuze3knop = Button(master=subwindow4, text='Ik ben mijn wachtwoord vergeten.', command=informatie_keuze_3, fg='white', bg="#00246a")
     keuze3knop.place(x=250, y=160)
     """Informatieknop_3"""
+    homeknop = Button(master=subwindow4, text='Dit venster sluiten', command=subwindow4.destroy, fg='white', bg="red")
+    homeknop.place(x=485, y=493)
+
     stopknop = Button(master=subwindow4, text='Ik wil stoppen', command=stoppen, fg='white', bg="red")
     stopknop.place(x=600, y=493)
 
