@@ -70,11 +70,11 @@ def fiets_registreren():
                     if str('@') not in str(email_entry.get()) or str('.') not in str(email_entry.get()) or len(str(email_entry.get())) < 6 or len(str(email_entry.get())) > 30:
                         emailcorrect = Label(master=subwindow, text='Dit email adres is niet geldig!', height=2, bg='#fece22')
                         emailcorrect.place(x=300, y=300)
-                    """Controleerd zit er een @ in email_entry, zit er een . in email_entry, en is email_entry lang genoeg."""
+                        """Controleerd zit er een @ in email_entry, zit er een . in email_entry, en is email_entry lang genoeg."""
                     if len(str(wachtwoord_entry.get())) < 8 or len(str(wachtwoord_entry.get())) > 12:
                         wachtwoordcorrect = Label(master=subwindow, text='Het gekozen wachtwoord moet minimaal 8 letters lang zijn en maximaal 12 letters lang!', height=2, bg='#fece22')
                         wachtwoordcorrect.place(x=300, y=300)
-                    """Controleerd of wachtwoord_entry lang genoeg is."""
+                        """Controleerd of wachtwoord_entry lang genoeg is."""
                     elif str('@') in str(email_entry.get()) and str('.') in str(email_entry.get()) and len(str(email_entry.get())) >= 6 and len(str(email_entry.get())) <= 30 and len(str(wachtwoord_entry.get())) >= 8 and len(str(wachtwoord_entry.get())) <= 12:
                         with open('fietsen.csv', 'a', newline='') as schrijven:
                             stickercode = randint(10000, 99999)
