@@ -51,18 +51,17 @@ while True:
             print("Code incorrect!")
             invoer=input("Vul de beveiligingscode in: ")
             tr = 1
-    
-    if tr == 1:
-        if knipperkeuze == 1:
+
+    if tr == 1 and knipperkeuze == 1:
             GPIO.output(18, GPIO.HIGH)
             GPIO.output(12, GPIO.LOW)
-        if knipperkeuze == 2:
+    if tr == 1 and knipperkeuze == 2:
             GPIO.output(18, GPIO.HIGH)
             GPIO.output(12, GPIO.LOW)
             wait()
             GPIO.output(18, GPIO.LOW)
             wait()
-        if knipperkeuze == 3:
+    if tr == 1 and knipperkeuze == 3:
             GPIO.output(18, GPIO.HIGH)
             GPIO.output(12, GPIO.LOW)
             waitlong()
@@ -71,4 +70,3 @@ while True:
     if tr == 0:
         GPIO.output(18, GPIO.LOW)
         GPIO.output(12, GPIO.HIGH)
-
