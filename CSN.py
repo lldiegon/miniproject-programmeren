@@ -25,52 +25,52 @@ def waitlong():
     time.sleep(1)
 
 while True:
+    #hier wordt gecheckt of er op knoppen gedrukt word.
     if GPIO.input(21) == False:
         tr = 1
-        #print("1")
-    #print(tr)
     elif GPIO.input(16) == False:
-        #print('wat is tr', tr)
         invoer=input("Vul de beveiligingscode in: ")
         if invoer == code:
+            #Als de code correct is wordt er een nieuw keuze menu gepresenteerd 
             print("Code correct!")
             print("1: Alarm resetten")
             print("2: Alarm knippermodus selecteren")
             print("3: Alarm buzzer aan of uit zetten")
             keuze = input("Kies een van de bovenstaande nummers: ")
             if keuze == 1:
+                # deze keuze zet het alarm weer uit
                 print("Alarm gereset!")
                 tr = 0
-               # continue
             elif keuze == 2:
+                # het alarm kan snel of kort knipperen, hier wordt dat gekozen
                 print("1: Constant aan")
                 print("2: Snel knipperen")
                 print("3: Langzaam knipperen")
                 knipperkeuze = input("Kies een van de bovenstaande knippermodes")
                 if knipperkeuze <= 3 and knipperkeuze >= 1:
                     print("Wijzigen gelukt!")
-                   # continue
                 else:
+                    # keuze is fout
                     print("Fout, kies een van de bovenstaande opties!")
                     knipperkeuze = input("Kies een van de bovenstaande knippermodes")
                     continue
             elif keuze == 3:
+                # hiermee wordt de buzzer aan of uit gezet
                 print("1: Buzzer aan")
                 print("2: Buzzer uit")
                 buzzerconfig = input("Kies een van de bovenstaande knippermodes")
                 if knipperkeuze <= 2 and knipperkeuze >= 1:
                     print("Wijzigen gelukt!")
-                    #continue
                 else:
                     print("Fout, kies een van de bovenstaande opties!")
                     knipperkeuze = input("Kies een van de bovenstaande knippermodes")
-               #     continue
         elif invoer != code:
+            # code is incorrect en gaat weer terug naar het invoeren van de code 
             print("Code incorrect!")
             tr = 1
-            #continue
 
     elif tr == 1 and knipperkeuze == 1:
+        # Het lampje staat nu constant aan
         buzzer = buzzerconfig
         if buzzer == 1:
             GPIO.output(23, GPIO.HIGH)
@@ -79,6 +79,7 @@ while True:
         GPIO.output(18, GPIO.HIGH)
         GPIO.output(12, GPIO.LOW)
     elif tr == 1 and knipperkeuze == 2:
+        # het lampje knippert nu snel
         buzzer = buzzerconfig
         if buzzer == 1:
             GPIO.output(23, GPIO.HIGH)
@@ -91,6 +92,7 @@ while True:
         wait()
         GPIO.output(18, GPIO.HIGH)
     elif tr == 1 and knipperkeuze == 3:
+        # het lampje knippert nu langzaam 
         buzzer = buzzerconfig
         if buzzer == 1:
             GPIO.output(23, GPIO.HIGH)
